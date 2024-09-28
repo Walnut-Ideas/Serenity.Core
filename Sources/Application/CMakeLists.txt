@@ -1,0 +1,2 @@
+add_subdirectory(SNetServer)
+add_subdirectory(WorldServer)

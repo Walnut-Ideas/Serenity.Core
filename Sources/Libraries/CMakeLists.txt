@@ -1,0 +1,5 @@
+add_subdirectory(Core)
+add_subdirectory(Shared)
+add_subdirectory(Database)
+add_subdirectory(Proto)
+add_subdirectory(Game)
