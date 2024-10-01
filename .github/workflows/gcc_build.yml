@@ -1,0 +1,33 @@
+name: GCC
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set reusable strings
+        id: strings
+        shell: bash
+        run: |
+          echo "build-output-dir=${{ github.workspace }}/bin" >> "$GITHUB_OUTPUT"
+      - name: Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -yq libboost1.81-all-dev g++-13
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave /usr/bin/g++ g++ /usr/bin/g++-13
+      - name: Setup
+        env:
+          CMAKE_BUILD_TYPE: Debug
+        run: >
+          cmake -S ${{ github.workspace }} -B ${{ steps.strings.outputs.build-output-dir }}
+      - name: Build
+        run: |
+            cd bin
+            make -j 4 -k && make install
+      - name: Check Executables
+        run: |
+          cd ${{ github.workspace }}/check_install/bin
+          
