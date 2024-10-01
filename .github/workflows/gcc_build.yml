@@ -16,7 +16,7 @@ jobs:
           echo "build-output-dir=${{ github.workspace }}/bin" >> "$GITHUB_OUTPUT"
       - name: Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -yq libboost1.81-all-dev g++-13
+          sudo apt-get update && sudo apt-get install -yq libboost-all-dev g++-13
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave /usr/bin/g++ g++ /usr/bin/g++-13
       - name: Setup
         env:
